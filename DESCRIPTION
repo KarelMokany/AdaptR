@@ -2,8 +2,7 @@ Package: AdaptR
 Title: Species distribution modelling incorporating genetic adaptation
 Version: 0.0.0.9000
 Authors@R: person("Karel", "Mokany", email = "Karel.Mokany@csiro.au", role = c("aut", "cre"))
-Authors@R: person("Alex", "Bush", email = "Alex.Bush@csiro.au", role = c("aut"))
-Description: What the package does (one paragraph).
+Description: One paragraph to be added.
 Depends: R (>= 3.2.0)
 License: What license is it under?
 Encoding: UTF-8
