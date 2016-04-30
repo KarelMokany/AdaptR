@@ -23,3 +23,14 @@ AdaptR<-function(Pfile = Parameter.File.Path)
   .C("AdaptR",  argv = as.character(c(Pfile)),
      arg_i_catch = as.integer(c(0,0)))
 } # end AdaptR function
+
+## Compact Environment Files
+CompactGrids<-function(Pfile = Parameter.File.Path)
+{
+  # load the dll
+  dyn.load("src/main.dll")
+  # call MuruCompactor from dll
+  .C("MuruCompactor",  argv = as.character(c(Pfile)),
+     arg_i_catch = as.integer(c(0,0)))
+} # end CompactGrids function
+
