@@ -11,6 +11,7 @@ AdaptR<-function(Pfile = Parameter.File.Path)
   # call AdaptR dll
   .C("AdaptR",  argv = as.character(c(Pfile)),
      arg_i_catch = as.integer(c(0,0)))
+  unload("src/main.dll")
 } # end AdaptR function
 
 

@@ -12,4 +12,5 @@ CompactGrids<-function(Pfile = Parameter.File.Path)
   # call MuruCompactor from dll
   .C("MuruCompactor",  argv = as.character(c(Pfile)),
      arg_i_catch = as.integer(c(0,0)))
+  unload("src/main.dll")
 } # end CompactGrids function
