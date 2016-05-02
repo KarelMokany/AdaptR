@@ -1,20 +1,9 @@
-################################################################################
-##
-## Run AdaptR - Preliminary code
-##
-## Karel Mokany - 28 April 2016
-##
-################################################################################
-
-# Set the working directory
-#setwd("C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR/source")
-
-
-
-## Set the parameter file name
-#Parameter.File.Path = "C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR/Test_Inputs/Parameters/Adaptor_parameters_ironensis_TEST.txt"
-
-## Run AdaptR
+#' Run AdaptR
+#'
+#' @param Pfile A file path to the parameter file
+#' @return A set of output files in the specified location
+#' @examples
+#' CompactGrids("C:/MyDocuments/AdaptR_ParameterFile.txt")
 AdaptR<-function(Pfile = Parameter.File.Path)
 {
   # load the dll
@@ -24,13 +13,5 @@ AdaptR<-function(Pfile = Parameter.File.Path)
      arg_i_catch = as.integer(c(0,0)))
 } # end AdaptR function
 
-## Compact Environment Files
-CompactGrids<-function(Pfile = Parameter.File.Path)
-{
-  # load the dll
-  dyn.load("src/main.dll")
-  # call MuruCompactor from dll
-  .C("MuruCompactor",  argv = as.character(c(Pfile)),
-     arg_i_catch = as.integer(c(0,0)))
-} # end CompactGrids function
+
 

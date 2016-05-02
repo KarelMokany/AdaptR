@@ -3,7 +3,9 @@ Title: Species distribution modelling incorporating genetic adaptation
 Version: 0.0.0.9000
 Authors@R: person("Karel", "Mokany", email = "Karel.Mokany@csiro.au", role = c("aut", "cre"))
 Description: One paragraph to be added.
-Depends: R (>= 3.2.0)
+Depends:
+    R (>= 3.2.0)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 5.0.1
