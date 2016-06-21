@@ -1,0 +1,6 @@
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax1.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax2.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax3.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax4.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax5.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Tmax/Tmax6.asc

@@ -1,0 +1,6 @@
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat1.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat2.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat3.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat4.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat5.asc
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/Habitat/Habitat6.asc

@@ -1,0 +1,6 @@
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T1
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T2
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T3
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T4
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T5
+C:/Users/mok010/Karels Files/Mokany Files/My R applications/AdaptR_package/AdaptR/data/compact_grids/demo_compact_grids_T6
