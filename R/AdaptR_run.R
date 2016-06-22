@@ -1,14 +1,71 @@
-#' Run AdaptR
+#' Run the AdaptR model
 #'
-#' @param Pfile A file path to the parameter file
-#' @return A set of output files in the specified location
+#' @param run.name A suitable name for the simulation run
+#' @param parameter.file.name A file path to the parameter file, which will be created & called
+#' @param ncols The number of columns on the spatial grid
+#' @param nrows The number of rows on the spatial grid
+#' @param output.folder.path A valid path to a folder where the results will be written
+#' @param verbose.outputs If TRUE, predictions will be written out at each time step
+#' @param n.time.points The number of time points in the simulation, which will equal the number of compacted environment grids
+#' @param n.env.vars The number of environment variables being considered
+#' @param env.vars.names A list of the names of the environment variables being considered
+#' @param env.grids.folder.path A valid path to the folder containing the compacted environment grids
+#' @param env.grids.name.file A file path to the file holding the names of the compacted environment grids, in order of their implementation in the simulation
+#' @param species.initial.grid A file path to the ascii file for the initial occurrence of the focal species, where 1 = present, 0 = absent, -9999 = not valid potential habitat.
+#' @param minimum.survival.percentage The percent of current population size below which local extinction will occur following a selection event. The complement of this value is used as the threshold below which evolutionary adaptation will occur.
+#' @param resident.population.weighting The percent weighting of a resident population when considering admixture through dispersal from neighbouring populations (weighted by dispersal probability)
+#' @param dispersal.neighbourhood.file A file path to the dispersal neighbourhood for AdaptR (.dna) file specifying the dispersal probability in the relative neighbourhood around each cell. See "Create_Dispersal"
+#' @param species.location.file A file path to a text file specifying the x and y coordinates for populations (grid cells) where outputs will be written for each generation. Format is space delimited text (.txt) of two columns, with row 1 = n_locations n, row 2 = Longitude Latitude, then n rows specifying the x & y locations to track
+#' @param env.lower.thresholds A list of length n.env.vars, specifying the lower tolerance threshold value for each environmental variable
+#' @param env.upper.thresholds A list of length n.env.vars, specifying the upper tolerance threshold value for each environmental variable
+#' @param env.low.adaptation A logical list (TRUE, FALSE) of length n.env.vars, specifying for each environmental variable whether adaptation on the lower tolerance threshold is being considered 
+#' @param env.high.adaptation A logical list (TRUE, FALSE) of length n.env.vars, specifying for each environmental variable whether adaptation on the upper tolerance threshold is being considered
+#' @param adapt.limit A list of length n.env.vars specifying the value beyond which the threshold tolerance cannot adapt further 
+#' @param heritability A list of length n.env.vars specifying the heritability of threshold tolerance attribute for each environmental variable
+#' @param fitness.cost A list of length n.env.vars specifying the 'fitness cost' of adaptation away from the original threshold tolerance values. This is the slope of the linear relation between the intensity of stabilising selection and the squared distance from the original threshold tolerance trait value.
+#' @param adapt.threshold.grids A logical list (TRUE, FALSE) of length n.env.vars, specifying for each environmental variable whether spatial grids will be provided specifying the initial threshold tolerance in each grid cell
+#' @param adapt.threshold.grid.names Where relevant, a list of length n.env.vars specifying the file paths to the ascii files of the initial threshold tolerance value across the grid
+#' @param phenotypic.sd.grid A logical list (TRUE, FALSE) of length n.env.vars, specifying for each environmental variable whether spatial grids will be provided specifying the initial phenotypic standard deviation for threhold tolerances in each grid cell
+#' @param phenotypic.sd.grid.names Where relevant, a list of length n.env.vars specifying the file paths to the ascii files of the initial threshold tolerance phenotypic standard deviation value across the grid
+#' @param phenotypic.sd.value Where relevant, a list of length n.env.vars specifying the initial phenotypic standard deviation values to be applied for all grid cells, for each environmental tolerance threshold.
+#' @param plasticity A list of length n.env.vars specifying the plasticity in the threshold tolerance trait for each environmental variable.
+#' @return A set of output files written in the specified folder, each containing the run.name
 #' @examples
-#' CompactGrids("C:/MyDocuments/AdaptR_ParameterFile.txt")
+#' # Using data example provided for Drosophila jambulina
+#' filepath.data <- system.file("extdata", package="AdaptR")
+#' AdaptR(run.name = "jambulina_test",
+#'         parameter.file.name = paste0(filepath.data,"/outputs/jambulina_test_parameters.txt"),
+#'         ncols = 100,
+#'         nrows = 79,
+#'         output.folder.path = paste0(filepath.data,"/outputs/"),
+#'         verbose.outputs = FALSE,
+#'         n.time.points = 12,
+#'         n.env.vars = 2,
+#'         env.vars.names = c("MaxTemp", "Other_Maxent"),
+#'         env.grids.folder.path = paste0(filepath.data,"/compact_grids/"),
+#'         env.grids.name.file = paste0(filepath.data,"/compact_grids/compact_series_names.txt"),
+#'         species.initial.grid = paste0(filepath.data,"/species_inputs/demo_jambulia_initial_distribution.asc"),
+#'         minimum.survival.percentage = 5,
+#'         resident.population.weighting = 1000,
+#'         dispersal.neighbourhood.file = paste0(filepath.data,"/species_inputs/Dispersal_relfile_L1_K1_rad5.dna"),
+#'         species.location.file = paste0(filepath.data,"/species_inputs/demo_locations_out.txt"),
+#'         env.lower.thresholds = c(19.47,0.99),
+#'         env.upper.thresholds = c(37.94547,1.01),
+#'         env.low.adaptation = c(FALSE,FALSE),
+#'         env.high.adaptation = c(TRUE,FALSE),
+#'         adapt.limit = c(40,0),
+#'         heritability = c(0.53,0),
+#'         fitness.cost = c(0.05,0),
+#'         adapt.threshold.grids = c(FALSE,FALSE),
+#'         phenotypic.sd.grid = c(FALSE,FALSE),
+#'         phenotypic.sd.value = c(1.106,0),
+#'         plasticity = c(1.106,0))
+#' 
 AdaptR<-function(run.name,
                  parameter.file.name,
                  ncols,
                  nrows,
-                 output.folder.path = as.character(getwd()),
+                 output.folder.path,
                  verbose.outputs = FALSE,
                  n.time.points,
                  n.env.vars,

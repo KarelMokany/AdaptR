@@ -10,7 +10,7 @@ CompactGrids(Pfile = Parameter.File.Path)
 \item{Pfile}{A file path to the parameter file}
 }
 \value{
-A set of cpmacted environment files in the specified location
+A set of compacted environment files in the specified location
 }
 \description{
 Create compacted environmental grids for AdaptR
