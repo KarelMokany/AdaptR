@@ -4,10 +4,23 @@
 \alias{CompactGrids}
 \title{Create compacted environmental grids for AdaptR}
 \usage{
-CompactGrids(Pfile = Parameter.File.Path)
+CompactGrids(compactor.parameter.file.name, ncols, nrows, n.env.vars,
+  n.time.points, raw.env.grids.name.files, output.env.name.file)
 }
 \arguments{
-\item{Pfile}{A file path to the parameter file}
+\item{compactor.parameter.file.name}{A file path to a text file (.txt) to be created by this function, where the grid compactor parameter file will be saved}
+
+\item{ncols}{The number of columns on the spatial grid}
+
+\item{nrows}{The number of rows on the spatial grid}
+
+\item{n.env.vars}{The number of environment variables being considered}
+
+\item{n.time.points}{The number of time points for which compacted environment grids are to be created}
+
+\item{raw.env.grids.name.files}{A list of length n.env.vars of filepaths to text files holding the filepaths of individual environment grids to be compacted.}
+
+\item{output.env.name.file}{A filepath to a text file (.txt) holding the filepaths where the compacted environment grids will be saved.}
 }
 \value{
 A set of compacted environment files in the specified location
@@ -16,6 +29,15 @@ A set of compacted environment files in the specified location
 Create compacted environmental grids for AdaptR
 }
 \examples{
-CompactGrids("C:/MyDocuments/CompactorParameterFile.txt")
+# Using data example provided for Drosophila jambulina
+filepath.data <- system.file("extdata", package="AdaptR")
+# Run the grid compactor
+CompactGrids(compactor.parameter.file.name = paste0(filepath.data,"/species_inputs/Jambulina__grid_compactor_parameter_file.txt"),
+             ncols = 100,
+             nrows = 79,
+             n.env.vars = 2,
+             n.time.points = 6,
+             raw.env.grids.name.files = c(paste0(filepath.data,"/Tmax/Tmax_filenames.txt"),paste0(filepath.data,"/Habitat/Habitat_filenames.txt")),
+             output.env.name.file = paste0(filepath.data,"/compact_grids/demo_compact_grids_output_filenames.txt"))
 }
 

@@ -80,27 +80,23 @@ Run the AdaptR model
 }
 \examples{
 # Using data example provided for Drosophila jambulina
-#Something like this?
-filepath.data <- system.file("inst/exdata", package="AdaptR")
-
-
-
+filepath.data <- system.file("extdata", package="AdaptR")
 AdaptR(run.name = "jambulina_test",
-        parameter.file.name = "data/outputs/jambulina_test_parameters.txt",
+        parameter.file.name = paste0(filepath.data,"/outputs/jambulina_test_parameters.txt"),
         ncols = 100,
         nrows = 79,
-        output.folder.path = "data/outputs/",
+        output.folder.path = paste0(filepath.data,"/outputs/"),
         verbose.outputs = FALSE,
         n.time.points = 12,
         n.env.vars = 2,
         env.vars.names = c("MaxTemp", "Other_Maxent"),
-        env.grids.folder.path = "data/compact_grids/",
-        env.grids.name.file = "data/compact_grids/compact_series_names.txt",
-        species.initial.grid = "data/species_inputs/demo_jambulia_initial_distribution.asc",
+        env.grids.folder.path = paste0(filepath.data,"/compact_grids/"),
+        env.grids.name.file = paste0(filepath.data,"/compact_grids/compact_series_names.txt"),
+        species.initial.grid = paste0(filepath.data,"/species_inputs/demo_jambulia_initial_distribution.asc"),
         minimum.survival.percentage = 5,
         resident.population.weighting = 1000,
-        dispersal.neighbourhood.file = "data/species_inputs/Dispersal_relfile_L1_K1_rad5.dna",
-        species.location.file = "data/species_inputs/demo_locations_out.txt",
+        dispersal.neighbourhood.file = paste0(filepath.data,"/species_inputs/Dispersal_relfile_L1_K1_rad5.dna"),
+        species.location.file = paste0(filepath.data,"/species_inputs/demo_locations_out.txt"),
         env.lower.thresholds = c(19.47,0.99),
         env.upper.thresholds = c(37.94547,1.01),
         env.low.adaptation = c(FALSE,FALSE),
@@ -112,6 +108,5 @@ AdaptR(run.name = "jambulina_test",
         phenotypic.sd.grid = c(FALSE,FALSE),
         phenotypic.sd.value = c(1.106,0),
         plasticity = c(1.106,0))
-
 }
 

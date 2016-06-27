@@ -60,8 +60,9 @@
 #'         phenotypic.sd.grid = c(FALSE,FALSE),
 #'         phenotypic.sd.value = c(1.106,0),
 #'         plasticity = c(1.106,0))
-#' 
-AdaptR<-function(run.name,
+#' @export
+AdaptR <- 
+function(run.name,
                  parameter.file.name,
                  ncols,
                  nrows,
@@ -378,7 +379,10 @@ AdaptR<-function(run.name,
   if(AdaptR.out$arg_i_catch[1] == -1 )
     stop("AdaptR has not run because the parameter file does not exist.")  
   
-  message(paste0("AdaptR simulation completed in ",arg_i_catch[1]," seconds. The results are in the specified output folder."))
+  message(paste0("Grid compaction completed. The compacted grids are in the specified output folder."))
+ 
+  # note: enter > document() 
+  # to load the NAMESPACE documentation correctly
   
 } # end AdaptR function
 
