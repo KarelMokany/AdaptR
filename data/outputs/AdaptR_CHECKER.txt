@@ -1,7 +1,0 @@
-heritability 0.53
-fitness_cost 0.05
-threshold 40
-threshold_after_plasticity 37.9455
-plasticity 0.9
-low_adaptation 0
-high_adaptation 1
