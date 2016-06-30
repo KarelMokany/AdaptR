@@ -81,22 +81,27 @@ Run the AdaptR model
 \examples{
 # Using data example provided for Drosophila jambulina
 filepath.data <- system.file("extdata", package="AdaptR")
+
+# create text files to describe the file path to the compact grids
+write.table(paste0("demo_compact_grids_T",rep(1:6, length.out=12)), file = file.path(filepath.data,"species_inputs","compact_series_names.txt"), eol = "\\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+
+# Run AdaptR
 AdaptR(run.name = "jambulina_test",
-        parameter.file.name = paste0(filepath.data,"/outputs/jambulina_test_parameters.txt"),
+        parameter.file.name = file.path(filepath.data,"outputs","jambulina_test_parameters.txt"),
         ncols = 100,
         nrows = 79,
-        output.folder.path = paste0(filepath.data,"/outputs/"),
+        output.folder.path = file.path(filepath.data,"outputs"),
         verbose.outputs = FALSE,
         n.time.points = 12,
         n.env.vars = 2,
         env.vars.names = c("MaxTemp", "Other_Maxent"),
-        env.grids.folder.path = paste0(filepath.data,"/compact_grids/"),
-        env.grids.name.file = paste0(filepath.data,"/compact_grids/compact_series_names.txt"),
-        species.initial.grid = paste0(filepath.data,"/species_inputs/demo_jambulia_initial_distribution.asc"),
+        env.grids.folder.path = file.path(filepath.data,"compact_grids"),
+        env.grids.name.file = file.path(filepath.data,"species_inputs","compact_series_names.txt"),
+        species.initial.grid = file.path(filepath.data,"species_inputs","demo_jambulia_initial_distribution.asc"),
         minimum.survival.percentage = 5,
         resident.population.weighting = 1000,
-        dispersal.neighbourhood.file = paste0(filepath.data,"/species_inputs/Dispersal_relfile_L1_K1_rad5.dna"),
-        species.location.file = paste0(filepath.data,"/species_inputs/demo_locations_out.txt"),
+        dispersal.neighbourhood.file = file.path(filepath.data,"species_inputs","Dispersal_relfile_L1_K1_rad5.dna"),
+        species.location.file = file.path(filepath.data,"species_inputs","demo_locations_out.txt"),
         env.lower.thresholds = c(19.47,0.99),
         env.upper.thresholds = c(37.94547,1.01),
         env.low.adaptation = c(FALSE,FALSE),

@@ -2,3 +2,4 @@
 
 export(AdaptR)
 export(CompactGrids)
+useDynLib(main)

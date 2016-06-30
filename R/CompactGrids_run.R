@@ -11,14 +11,21 @@
 #' @examples
 #' # Using data example provided for Drosophila jambulina
 #' filepath.data <- system.file("extdata", package="AdaptR")
+#'
+#' # create text files to describe the file path to each input variable, and the output variable
+#' write.table((file.path(filepath.data,"Tmax",paste0("Tmax",seq(1:6),".asc"))), file = file.path(filepath.data,"Tmax","Tmax_filenames.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+#' write.table((file.path(filepath.data,"Habitat",paste0("Habitat",seq(1:6),".asc"))), file = file.path(filepath.data,"Habitat","Habitat_filenames.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+#' write.table((file.path(filepath.data,"compact_grids",paste0("demo_compact_grids_T",seq(1:6)))), file = file.path(filepath.data,"compact_grids","demo_compact_grids_output_filenames.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+#' 
 #' # Run the grid compactor
-#' CompactGrids(compactor.parameter.file.name = paste0(filepath.data,"/species_inputs/Jambulina__grid_compactor_parameter_file.txt"),
+#' CompactGrids(compactor.parameter.file.name = file.path(filepath.data,"species_inputs","Jambulina__grid_compactor_parameter_file.txt"),
 #'              ncols = 100,
 #'              nrows = 79,
 #'              n.env.vars = 2,
 #'              n.time.points = 6,
-#'              raw.env.grids.name.files = c(paste0(filepath.data,"/Tmax/Tmax_filenames.txt"),paste0(filepath.data,"/Habitat/Habitat_filenames.txt")),
-#'              output.env.name.file = paste0(filepath.data,"/compact_grids/demo_compact_grids_output_filenames.txt"))
+#'              raw.env.grids.name.files = c(file.path(filepath.data,"Tmax","Tmax_filenames.txt"),file.path(filepath.data,"Habitat","Habitat_filenames.txt")),
+#'              output.env.name.file = file.path(filepath.data,"compact_grids","demo_compact_grids_output_filenames.txt"))
+#' @useDynLib main
 #' @export
 CompactGrids <- 
 function(compactor.parameter.file.name,
@@ -75,15 +82,20 @@ function(compactor.parameter.file.name,
   
   ##_____________________________________________________________________________________##  
   # load the dll
-  dyn.load("src/main.dll")
-  # call MuruCompactor from dll
+  package.path<-system.file(package="AdaptR")
+  r_arch <- .Platform$r_arch
+  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
+  # load the dll
+  dyn.load(file.path.source)  # call MuruCompactor from dll
   Compactor.out <- .C("MuruCompactor",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(0,0)))
-  dyn.unload("src/main.dll")
+  dyn.unload(file.path.source)
   ##_____________________________________________________________________________________##   
   
-  if(Compactor.outt$arg_i_catch[1] == -2 )
+  if(Compactor.out$arg_i_catch[1] == -2 )
     stop("CompactGrids has not run because the parameter file is formatted incorrectly.")  
   if(Compactor.out$arg_i_catch[1] == -1 )
     stop("CompactGrids has not run because the parameter file does not exist.")   
-  
+
+  message(paste0("Grid compaction completed. The compacted grids are in the specified output folder."))
+    
 } # end CompactGrids function

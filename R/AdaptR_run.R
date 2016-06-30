@@ -33,22 +33,27 @@
 #' @examples
 #' # Using data example provided for Drosophila jambulina
 #' filepath.data <- system.file("extdata", package="AdaptR")
+#' 
+#' # create text files to describe the file path to the compact grids
+#' write.table(paste0("demo_compact_grids_T",rep(1:6, length.out=12)), file = file.path(filepath.data,"species_inputs","compact_series_names.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+#' 
+#' # Run AdaptR
 #' AdaptR(run.name = "jambulina_test",
-#'         parameter.file.name = paste0(filepath.data,"/outputs/jambulina_test_parameters.txt"),
+#'         parameter.file.name = file.path(filepath.data,"outputs","jambulina_test_parameters.txt"),
 #'         ncols = 100,
 #'         nrows = 79,
-#'         output.folder.path = paste0(filepath.data,"/outputs/"),
+#'         output.folder.path = file.path(filepath.data,"outputs"),
 #'         verbose.outputs = FALSE,
 #'         n.time.points = 12,
 #'         n.env.vars = 2,
 #'         env.vars.names = c("MaxTemp", "Other_Maxent"),
-#'         env.grids.folder.path = paste0(filepath.data,"/compact_grids/"),
-#'         env.grids.name.file = paste0(filepath.data,"/compact_grids/compact_series_names.txt"),
-#'         species.initial.grid = paste0(filepath.data,"/species_inputs/demo_jambulia_initial_distribution.asc"),
+#'         env.grids.folder.path = file.path(filepath.data,"compact_grids"),
+#'         env.grids.name.file = file.path(filepath.data,"species_inputs","compact_series_names.txt"),
+#'         species.initial.grid = file.path(filepath.data,"species_inputs","demo_jambulia_initial_distribution.asc"),
 #'         minimum.survival.percentage = 5,
 #'         resident.population.weighting = 1000,
-#'         dispersal.neighbourhood.file = paste0(filepath.data,"/species_inputs/Dispersal_relfile_L1_K1_rad5.dna"),
-#'         species.location.file = paste0(filepath.data,"/species_inputs/demo_locations_out.txt"),
+#'         dispersal.neighbourhood.file = file.path(filepath.data,"species_inputs","Dispersal_relfile_L1_K1_rad5.dna"),
+#'         species.location.file = file.path(filepath.data,"species_inputs","demo_locations_out.txt"),
 #'         env.lower.thresholds = c(19.47,0.99),
 #'         env.upper.thresholds = c(37.94547,1.01),
 #'         env.low.adaptation = c(FALSE,FALSE),
@@ -60,6 +65,7 @@
 #'         phenotypic.sd.grid = c(FALSE,FALSE),
 #'         phenotypic.sd.value = c(1.106,0),
 #'         plasticity = c(1.106,0))
+#' @useDynLib main
 #' @export
 AdaptR <- 
 function(run.name,
@@ -96,8 +102,9 @@ function(run.name,
   ## First, let's run some sanity checks on the parameters
   if(missing(run.name))
     stop("Need to specify a name for this run of Adaptor.")  
-  ##if(!file.exists(out.folder))
-  ##  stop("Need to specify valid output file path.")  
+  if(!file.exists(output.folder.path))
+    stop("Need to specify valid output file path.")
+  output.folder.path<-paste0(output.folder.path,.Platform$file.sep)
   if(missing(ncols))
     stop("Need to specify the number of columns in the grid (ncols).")
   if(missing(nrows))
@@ -108,8 +115,9 @@ function(run.name,
     stop("Need to specify the number of environmental variables in your compacted grids (n.env.vars).")  
   if(!(length(env.vars.names) == n.env.vars))
     stop("You have specified a different number of environment variable names to n.env.vars.")
-  ##if(!file.exists(env.grids.folder.path))
-  ##  stop("Need to specify valid file path to the compacted environment grids.")
+  if(!file.exists(env.grids.folder.path))
+    stop("Need to specify valid file path to the compacted environment grids.")
+  env.grids.folder.path<-paste0(env.grids.folder.path,.Platform$file.sep)
   if(!file.exists(env.grids.name.file))
     stop("Need to specify valid file providing names for the environment grids.")  
   if(!file.exists(species.initial.grid))
@@ -364,11 +372,15 @@ function(run.name,
   
   ##_____________________________________________________________________________________##
   # load the dll
-  dyn.load("src/main.dll")
-  # call AdaptR dll
+  package.path<-system.file(package="AdaptR")
+  r_arch <- .Platform$r_arch
+  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
+  # load the dll
+  dyn.load(file.path.source)
+  # call the AdaptR function in the dll
   AdaptR.out <- .C("AdaptR",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(-3,0)))
   # unload the dll
-  dyn.unload("src/main.dll")
+  dyn.unload(file.path.source)
   ##_____________________________________________________________________________________##
   
   # Now provide some output
@@ -379,8 +391,10 @@ function(run.name,
   if(AdaptR.out$arg_i_catch[1] == -1 )
     stop("AdaptR has not run because the parameter file does not exist.")  
   
-  message(paste0("Grid compaction completed. The compacted grids are in the specified output folder."))
- 
+  message(paste0("AdaptR completed. The results are in the specified output folder."))
+  
+  # library(roxygen2)
+  # library(devtools)
   # note: enter > document() 
   # to load the NAMESPACE documentation correctly
   
