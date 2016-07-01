@@ -25,7 +25,7 @@
 #'              n.time.points = 6,
 #'              raw.env.grids.name.files = c(file.path(filepath.data,"Tmax","Tmax_filenames.txt"),file.path(filepath.data,"Habitat","Habitat_filenames.txt")),
 #'              output.env.name.file = file.path(filepath.data,"compact_grids","demo_compact_grids_output_filenames.txt"))
-#' @useDynLib main
+### #' @useDynLib main
 #' @export
 CompactGrids <- 
 function(compactor.parameter.file.name,
