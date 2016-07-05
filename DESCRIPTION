@@ -8,4 +8,6 @@ Depends:
 License: see License.txt in package files
 Encoding: UTF-8
 LazyData: true
+Imports: Rcpp (>= 0.12.5)
+LinkingTo: Rcpp
 RoxygenNote: 5.0.1

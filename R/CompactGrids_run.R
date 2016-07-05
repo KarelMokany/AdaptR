@@ -25,7 +25,7 @@
 #'              n.time.points = 6,
 #'              raw.env.grids.name.files = c(file.path(filepath.data,"Tmax","Tmax_filenames.txt"),file.path(filepath.data,"Habitat","Habitat_filenames.txt")),
 #'              output.env.name.file = file.path(filepath.data,"compact_grids","demo_compact_grids_output_filenames.txt"))
-#' @useDynLib main
+#' @useDynLib AdaptR
 #' @export
 CompactGrids <- 
 function(compactor.parameter.file.name,
@@ -82,18 +82,21 @@ function(compactor.parameter.file.name,
   
   ##_____________________________________________________________________________________##  
   # load the dll
-  package.path<-system.file(package="AdaptR")
-  r_arch <- .Platform$r_arch
-  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
+#  package.path<-system.file(package="AdaptR")
+#  r_arch <- .Platform$r_arch
+#  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
   # load the dll
-  dyn.load(file.path.source)  # call MuruCompactor from dll
-  Compactor.out <- .C("MuruCompactor",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(0,0)))
-  dyn.unload(file.path.source)
+#  dyn.load(file.path.source)  # call MuruCompactor from dll
+#  Compactor.out <- .C("MuruCompactor",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(0,0)))
+#  dyn.unload(file.path.source)
   ##_____________________________________________________________________________________##   
+  Compactor.out <- rcpp_MuruCompactor(parameter.file)  
   
-  if(Compactor.out$arg_i_catch[1] == -2 )
+  ##_____________________________________________________________________________________##  
+  
+  if(Compactor.out == -2 )
     stop("CompactGrids has not run because the parameter file is formatted incorrectly.")  
-  if(Compactor.out$arg_i_catch[1] == -1 )
+  if(Compactor.out == -1 )
     stop("CompactGrids has not run because the parameter file does not exist.")   
 
   message(paste0("Grid compaction completed. The compacted grids are in the specified output folder."))

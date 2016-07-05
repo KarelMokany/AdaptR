@@ -65,7 +65,7 @@
 #'         phenotypic.sd.grid = c(FALSE,FALSE),
 #'         phenotypic.sd.value = c(1.106,0),
 #'         plasticity = c(1.106,0))
-#' @useDynLib main
+#' @useDynLib AdaptR
 #' @export
 AdaptR <- 
 function(run.name,
@@ -372,23 +372,25 @@ function(run.name,
   
   ##_____________________________________________________________________________________##
   # load the dll
-  package.path<-system.file(package="AdaptR")
-  r_arch <- .Platform$r_arch
-  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
+#  package.path<-system.file(package="AdaptR")
+#  r_arch <- .Platform$r_arch
+#  file.path.source<-file.path(package.path, "libs", r_arch, "main.dll")
   # load the dll
-  dyn.load(file.path.source)
+#  dyn.load(file.path.source)
   # call the AdaptR function in the dll
-  AdaptR.out <- .C("AdaptR",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(-3,0)))
+#  AdaptR.out <- .C("AdaptR",  argv = as.character(c(parameter.file)), arg_i_catch = as.integer(c(-3,0)))
   # unload the dll
-  dyn.unload(file.path.source)
+#  dyn.unload(file.path.source)
   ##_____________________________________________________________________________________##
+  AdaptR.out <- rcpp_AdaptR(parameter.file)
   
+  ##_____________________________________________________________________________________##    
   # Now provide some output
-  if(AdaptR.out$arg_i_catch[1] == -3 )
+  if(AdaptR.out == -3 )
     stop("AdaptR has not run. Could not call the dll.")
-  if(AdaptR.out$arg_i_catch[1] == -2 )
+  if(AdaptR.out == -2 )
     stop("AdaptR has not run because the parameter file is formatted incorrectly.")  
-  if(AdaptR.out$arg_i_catch[1] == -1 )
+  if(AdaptR.out == -1 )
     stop("AdaptR has not run because the parameter file does not exist.")  
   
   message(paste0("AdaptR completed. The results are in the specified output folder."))
