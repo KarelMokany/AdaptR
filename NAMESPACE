@@ -2,4 +2,5 @@
 
 export(AdaptR)
 export(CompactGrids)
+importFrom(Rcpp,evalCpp)
 useDynLib(AdaptR)

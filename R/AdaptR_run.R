@@ -65,6 +65,7 @@
 #'         phenotypic.sd.grid = c(FALSE,FALSE),
 #'         phenotypic.sd.value = c(1.106,0),
 #'         plasticity = c(1.106,0))
+#' @importFrom Rcpp evalCpp
 #' @useDynLib AdaptR
 #' @export
 AdaptR <- 
