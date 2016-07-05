@@ -1,5 +1,5 @@
 # AdaptR
 #
-# Initial version for execution on Windows 64bit operating systems
+# Initial version allowing basic operationality for SDM with adaptation
 #
-# Future version enabling application across all operating systems will be available soon.
+# Future version enabling greater flexibility and functionality will be available soon.
