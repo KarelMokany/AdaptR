@@ -35,7 +35,7 @@
 #' filepath.data <- system.file("extdata", package="AdaptR")
 #' 
 #' # create text files to describe the file path to the compact grids
-#' write.table(paste0("demo_compact_grids_T",rep(1:6, length.out=12)), file = file.path(filepath.data,"species_inputs","compact_series_names.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
+#' write.table(paste0("demo_compact_grids_T",rep(1:159, length.out=159)), file = file.path(filepath.data,"species_inputs","compact_series_names.txt"), eol = "\n", row.names = FALSE, col.names = FALSE, quote=FALSE )
 #' 
 #' # Run AdaptR
 #' AdaptR(run.name = "jambulina_test",
@@ -44,7 +44,7 @@
 #'         nrows = 79,
 #'         output.folder.path = file.path(filepath.data,"outputs"),
 #'         verbose.outputs = FALSE,
-#'         n.time.points = 12,
+#'         n.time.points = 159,
 #'         n.env.vars = 2,
 #'         env.vars.names = c("MaxTemp", "Other_Maxent"),
 #'         env.grids.folder.path = file.path(filepath.data,"compact_grids"),
