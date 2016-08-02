@@ -3,9 +3,8 @@ Title: Species distribution modelling incorporating genetic adaptation
 Version: 1.0
 Authors@R: person("Karel", "Mokany", email = "Karel.Mokany@csiro.au", role = c("aut", "cre"))
 Description: AdaptR runs a simulation of changes in a species distribution over time, under environmental change, incorporating genetic adaptation.
-Depends:
-    R (>= 3.2.0)
-License: see License.txt in package files
+Depends: R (>= 3.2.0)
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 0.12.5)
