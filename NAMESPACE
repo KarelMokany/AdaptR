@@ -2,5 +2,6 @@
 
 export(AdaptR)
 export(CompactGrids)
+export(Dispersal_Neighbourhood)
 importFrom(Rcpp,evalCpp)
 useDynLib(AdaptR)
