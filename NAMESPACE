@@ -3,5 +3,8 @@
 export(AdaptR)
 export(CompactGrids)
 export(Dispersal_Neighbourhood)
+export(map.single.run)
+export(map.summary)
 importFrom(Rcpp,evalCpp)
+importFrom(raster,raster)
 useDynLib(AdaptR)

@@ -29,93 +29,10 @@ class TRaft
    // destructor
    ~TRaft(void);
 
-  //GET
-  /*
-  long int GetNRel(void) {return n_rel;}
-  long int GetNRows(void) {return n_rows;}
-  long int GetNCols(void) {return n_cols;}
-  int GetNLayers(void) {return n_layers;}
-  int GetFromIndex(void){return i_from_stack;}
-  int GetFromIndex(const long int arg_i_row,
-                   const long int arg_i_col);
-  int GetToIndex(void){return i_to_stack;}
-  */
-  //float GetGDMIntercept(void){return Run_Parameters->f_gdm_intercept;}
+  
   TGridCell_ptr GetCell(const int arg_i_row,
                              const int arg_i_col) {if(Map[arg_i_row][arg_i_col]==NULL)return NULL; else return Map[arg_i_row][arg_i_col];}
-  /*
-  TGridCell_ptr GetRelCell(const int arg_i_rel,
-                            const long int arg_i_row,
-                            const long int arg_i_col);
-  int GetRowRelCell(const int arg_i_rel,             // KM Oct 2012
-                    const long int arg_i_row,
-                    const long int arg_i_col);
-  int GetColRelCell(const int arg_i_rel,             // KM Oct 2012
-                    const long int arg_i_row,
-                    const long int arg_i_col);
-  float GetRelDistance(const int arg_i_rel){return f_rel_dist[arg_i_rel];}
-  float GetRelBearing(const int arg_i_rel){return f_rel_bearing[arg_i_rel];}
-  double GetRelProb(const int arg_i_rel){return d_rel_prob[arg_i_rel];}
 
-  short* GetSpeciesList(const long int arg_i_row,
-                        const long int arg_i_col);
-  short* GetRelSpeciesList( const int arg_i_rel,
-                            const long int arg_i_row,
-                            const long int arg_i_col);
-  //Set
-  void SetDice(TGenerator* arg_Dice){Dice=arg_Dice;}
-  void SetCompositionFileStream(ifstream* arg_FileStream_ptr ){CompositionFileStream=arg_FileStream_ptr;}
-  int MakeLand(string arg_s_condition_file);  // Full path to load from
-  int IsLand(const long int arg_i_row,
-             const long int arg_i_col) {if(Map[arg_i_row][arg_i_col]==NULL)return 0; else return 1;}
-  // neighbourhood stuff
-  void CalculateRelativeRadialNeighbourhood(const float arg_f_radius);
-  void LoadRelativeNeighbourhood(string arg_s_sample_file);
-  float CalculateBearingToRel(const long int arg_i_rel_row,
-                              const long int arg_i_rel_col);
-  double CalculateDispersal(const float arg_f_dist);
-
-  //Loading and managing stacks in time
-  void AdvanceTime(void);
-  void FlipStacks(void); // makes i_from_stack=i_to_stack and vice versa
-  void InitialiseAllSeries(void);
-  void RefreshAllSeries(void);
-
-  int LoadWholeGDMStack(const int arg_i_which,  //K_FROM_STACK 0 and K_TO_STACK 1
-                        string arg_s_file);
-  int ReadInWholeGDMStack(const int arg_i_which,  //K_FROM_STACK 0 and K_TO_STACK 1
-                          string arg_s_file);
-  void InitialiseGDMSeries(void);
-  void RefreshGDMSeries(void);
-  int AllocateGDMStacks(void);
-  void FreeGDMStacks(void);
-  void MeltAllGDMStacks(void);
-  int AllocateGDMIncrement(void);
-  void FreeGDMIncrement(void);
-  int CalculateGDMIncrement(void);
-
-  int LoadConditionGrid(const int arg_i_which,         // K_FROM_CON 0   and  K_TO_CON  1
-                        string arg_s_condition_file);  // Full path to load from
-  void InitialiseCondSeries(void);
-  void RefreshCondSeries(void);
-  int CalculateCondIncrement(void);
-
-  int LoadRichnessGrid(const int arg_i_which,         // K_FROM_CON 0   and  K_TO_CON  1
-                        string arg_s_richness_file);  // Full path to load from
-  void InitialiseRichSeries(void);
-  void RefreshRichSeries(void);
-  int CalculateRichIncrement(void);
-  // Compositional data stuff
-  void InitialiseRealisedCompositionBuffer(ifstream* arg_composition_file,
-                                           const long int arg_i_start_row);
-  void DestroyRealisedCompositionBuffer(void);
-  void MoveRealisedCompositionBufferToNextRow(void);
-  void LoadSpeciesRow(const long int arg_i_row);
-  void LoadKnownSpeciesDataRow(const long int arg_i_row);
-  void LoadEmptySpeciesDataRow(const long int arg_i_row);
-  void FreeSpeciesRow(const long int arg_i_row);
-  void FreeKnownSpeciesDataRow(const long int arg_i_row);
-  */
   void LoadEmptyRaftData(int arg_n_rows,
 						 int arg_n_cols,
 						 int arg_n_env_variables);
