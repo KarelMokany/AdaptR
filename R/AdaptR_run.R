@@ -431,6 +431,9 @@ function(run.name,
   # library(devtools)
   # note: enter > document() 
   # to load the NAMESPACE documentation correctly
+  # To install package from Github:
+  #  library(devtools)
+  #  install_github("KarelMokany/AdaptR")
   
 } # end AdaptR function
 
